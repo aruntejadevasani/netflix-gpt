@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import { checkValidData } from '../utils/validate';
 import {
@@ -10,11 +9,11 @@ import {
 import { auth } from '../utils/firebase';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
+import { BG_IMAGE, PROFILE_LOGO } from '../utils/constants';
 
 const Login = () => {
 	const [isSignIn, setIsSignIn] = useState(true);
 	const [errorMessage, setErrorMessage] = useState(null);
-	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const email = useRef(null);
@@ -43,18 +42,19 @@ const Login = () => {
 					const user = userCredential.user;
 					updateProfile(user, {
 						displayName: name.current.value,
+						photoURL: PROFILE_LOGO,
 					})
 						.then(() => {
-							const { uid, email, displayName } =
+							const { uid, email, displayName, photoURL } =
 								auth.currentUser;
 							dispatch(
 								addUser({
 									uid: uid,
 									email: email,
 									displayName: displayName,
+									photoURL: photoURL,
 								})
 							);
-							navigate('/browse');
 						})
 						.catch((error) => {
 							setErrorMessage(error.message);
@@ -71,11 +71,7 @@ const Login = () => {
 				email.current.value,
 				password.current.value
 			)
-				.then((userCredential) => {
-					const user = userCredential.user;
-					console.log(user);
-					navigate('/browse');
-				})
+				.then((userCredential) => {})
 				.catch((error) => {
 					const errorCode = error.code;
 					const errorMessage = error.message;
@@ -88,10 +84,7 @@ const Login = () => {
 		<div>
 			<Header />
 			<div className="absolute">
-				<img
-					src="https://assets.nflxext.com/ffe/siteui/vlv3/4d2c5849-b306-4884-9036-6211f7ee0178/web/IN-en-20240930-TRIFECTA-perspective_1e1ca6cd-9e2d-4e9d-9e4b-ba0c2d3a0e31_large.jpg"
-					alt="logo"
-				/>
+				<img src={BG_IMAGE} alt="logo" />
 			</div>
 			<form
 				onSubmit={(e) => e.preventDefault()}
