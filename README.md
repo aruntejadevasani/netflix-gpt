@@ -30,6 +30,16 @@
     - Update store with trailer video data
     - Embedded the YOutube video & make it autoplay and mute
     - Tailwind Classes to make MainContainer look awesome
+    - Build Secondary Container
+    - Build Movie List
+    - Build Movie Card
+    - TMDB Image CDN URL
+    - Made browse page look good
+    - Made hooks for Popular, Top Rated, Upcoming Movies
+    - GPT Search Feature
+    - GPT Search Bar
+    - Multi-Language feature in our App
+    - GPT API Integration
 
 # Features
 
